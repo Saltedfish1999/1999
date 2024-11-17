@@ -29,6 +29,7 @@
     </van-col>
   </van-row>
   <van-row
+    @click="getOrder(item)"
     justify="space-around"
     class="yy-list"
     v-for="(item, index) in homeData.hospitals"
@@ -50,10 +51,12 @@
 </template>
 <script setup>
 import { ref, onMounted, getCurrentInstance, reactive } from "vue";
+import { useRouter } from "vue-router";
 
 //获取当前vue实例
 const { proxy } = getCurrentInstance();
 const searchValue = ref("");
+const router = useRouter();
 
 const homeData = reactive({
   hospital: [],
@@ -69,6 +72,18 @@ onMounted(async () => {
   Object.assign(homeData, data.data);
   console.log(homeData);
 });
+/**
+ * 点击医院页面跳转
+ */
+const getOrder = (data) => {
+  router.push(`/createOrder?id=${data.id}`);
+};
+/**
+ * 点击页面跳转
+ */
+const goTwoOrder = (index) => {
+  router.push(`/createOrder?id=${homeData.hospitals[index].id}`);
+};
 </script>
 <style lang="less" scoped>
 .header {
@@ -95,7 +110,7 @@ onMounted(async () => {
 }
 .yy-list {
   padding-bottom: 10px;
-  margin: 20px 0;
+  margin: 40px 0;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.04), 0 1px 6px 0 rgba(0, 0, 0, 0.04);
