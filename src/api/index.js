@@ -19,4 +19,22 @@ export default {
   h5Companion() {
     return request.get("/h5/companion");
   },
+  /**
+   * 创建订单
+   */
+  createOrder(data) {
+    return request.post("/createOrder", data);
+  },
+  /**
+   * 订单列表
+   */
+  orderList(params) {
+    return request.get("/order/list", { params });
+  },
+  /**
+   *订单详情
+   */
+  orderDetail(params) {
+    return request.get("/order/detail", { params });
+  },
 };
